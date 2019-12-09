@@ -1,5 +1,8 @@
 #include<stdio.h>
 #include<stdlib.h>
+
+//this function read the file and store all integer into an array and return the number of total integer..
+
 int readIntFile(char* fileName, int arr[]){
     FILE *fp;
     fp = fopen(fileName, "r");
@@ -13,6 +16,8 @@ int readIntFile(char* fileName, int arr[]){
     return i;
 }
 
+//this function take an array of integer as input and return the second max number among them.
+
 int secMaxNum(int arr[], int sizeOfArr){
     int max = arr[0],j;
     for (j = 0; j < sizeOfArr; j++){
@@ -22,6 +27,10 @@ int secMaxNum(int arr[], int sizeOfArr){
     }
     
     int secMax = arr[0], i=0;
+    
+    //secMax can't be set equal to max number.
+    //while first numbers of the array are max number, secMax is set to the next number.
+
     while (arr[i] == max)
     {
         secMax = arr[i+1];
