@@ -1,7 +1,14 @@
 #!/bin/bash
+if="wlp2s0"
 
-wifi=$(iw dev wlp2s0 link | awk -F ":" '/SSID/ {print $NF}')
-[[ -z $wifi ]] && exit 1
-dload=$(echo "scale=3;`iw dev wlp2s0 link | awk '/RX/ {print $2}'` /  1000000" | bc )
-uload=$(echo "scale=3; `iw dev wlp2s0 link | awk '/TX/ {print $2}'` / 1000000" | bc )
-echo " $wifi(${dload}M ${uload}M)"
+wifi=$(cat /sys/class/net/${if}/operstate)
+[[ "$wifi" == "down" ]] && exit 1
+
+ssid=$(iw dev $if info | awk '/ssid/ { printf $2 }')
+
+dload=$(echo "scale=3;`cat /sys/class/net/${if}/statistics/rx_bytes` /  1000000" | bc )
+
+uload=$(echo "scale=3; `cat /sys/class/net/${if}/statistics/tx_bytes` / 1000000" | bc )
+
+
+echo " $ssid(${dload}M ${uload}M)"

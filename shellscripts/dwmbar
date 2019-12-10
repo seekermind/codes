@@ -1,0 +1,17 @@
+#!/bin/bash
+status(){
+	delim=" | "
+	printf "$(i3volume.sh)%$delim"
+	printf "$(i3backlight.sh)%%$delim"
+	printf "$(i3wifi.sh)$delim"
+	printf "$(i3battery.sh)%%$delim"
+	printf " $(uptime | sed "s/.*load average: \([0-9]*\.[0-9][0-9]\),.*/\1/")$delim"
+	printf " $(free | awk '/Mem/ { printf "%.2f", $3*100/$2 }')%%$delim"
+	printf " $(date '+%a %b %d  %I:%M %p')"
+
+}
+while :; do
+	xsetroot -name  "$(status)"
+
+	sleep 1m
+done

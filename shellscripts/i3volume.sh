@@ -5,9 +5,9 @@ jack=$(pacmd list-cards | awk '/analog-output-headphones/ {print $NF}')
 
 if [ "${jack}" != "no)" ];
 then
-	echo " $volume"
+	echo "  $volume"
 else	
-	echo " $volume"
+	echo "  $volume"
 fi
 
 case $BLOCK_BUTTON in
